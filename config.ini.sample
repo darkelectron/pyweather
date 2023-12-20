@@ -1,0 +1,18 @@
+[DEFAULTS]
+LAT=
+LON=
+API_KEY=
+UNITS=
+
+[LOCATION]
+provider=Manual
+
+[ICONS]
+scattered clouds=󰖐
+few clouds=
+clear sky=
+broken clouds=
+overcast clouds=
+light rain=
+moderate rain=
+shower rain=
