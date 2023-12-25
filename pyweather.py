@@ -11,13 +11,18 @@ CONFIG_FILE_LOCATION = os.path.expanduser('~/.config/pyweather/config.ini')  # i
 
 def check_config_file():
     if not os.path.isfile(CONFIG_FILE_LOCATION):
-        print("nothing")
+        print("[-] Config File Not Found")
         exit(1)
 
 
 def get_latlong_from_ip():
-    latlong = requests.get("https://ipapi.co/latlong").text
-    return latlong.split(',')
+    latlong = requests.get("https://ipapi.co/latlong")
+
+    if latlong.status_code == 200:
+        return latlong.text.split(',')
+    else:
+        print(f"[-] Returned Code: {latlong.status_code}")
+        return False
 
 
 check_config_file()
@@ -25,13 +30,13 @@ config = configparser.ConfigParser()
 config.read(CONFIG_FILE_LOCATION)
 
 if config.sections() is None:
-    print("Something missing")
+    print("[-] Config File Missing Section")
     exit(1)
 else:
     # check empty options
     for a in config.items('DEFAULTS'):
         if '' in a:
-            print("some options are empty")
+            print("[-] Empty Options Found in [DEFAULTS] Section")
             exit(1)
 
     config_defaults = config['DEFAULTS']
@@ -41,11 +46,12 @@ if config['LOCATION']['provider'] == "Manual":
     LON = config_defaults.get('LON')
 else:
     latlong = get_latlong_from_ip()
-    LAT = latlong[0]
-    LON = latlong[1]
 
-    print(LAT)
-    print(LON)
+    if latlong is not False:
+        LAT = latlong[0]
+        LON = latlong[1]
+    else:
+        exit(1)
 
 API_KEY = config_defaults.get('API_KEY')
 UNITS = config_defaults.get('UNITS')
@@ -64,7 +70,7 @@ if weather:
     weather_json = weather.json()
 else:
     print(weather)
-    print("Something Went Wrong")
+    print("[-] Something Went Wrong")
     exit(1)
 
 if args.print_json is True:
