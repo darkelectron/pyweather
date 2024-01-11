@@ -8,11 +8,30 @@ UNITS=
 provider=Manual
 
 [ICONS]
-scattered clouds=󰖐
-few clouds=
-clear sky=
-broken clouds=
-overcast clouds=
-light rain=
-moderate rain=
-shower rain=
+# clear sky
+01d=
+01n=
+# few clouds
+02d=
+02n=
+# scattered
+03d=󰖐
+03n=󰖐
+# broken
+04d=
+04n=
+# shower
+09d=
+09n=
+# rain
+010d=
+010n=
+# thunderstorm
+011d=
+011n=
+# snow
+013n=
+014d=
+# mist
+50d=
+50n=

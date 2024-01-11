@@ -85,13 +85,13 @@ if args.print_json is True:
     print(weather_json["main"]["feels_like"])
 
 for i in weather_json["weather"]:
-    weather_description = i["description"]
+    weather_icon = i["icon"]
 
 
 rounded_feels_like = round(weather_json["main"]["feels_like"])
 
 config_icons = config['ICONS']
-ICON = config_icons.get(weather_description)
+ICON = config_icons.get(weather_icon)
 format = f"%{{F#FF0000}}%{{T3}}{ICON} %{{T-}}%{{F-}}{rounded_feels_like}°C"
 
 print(format)

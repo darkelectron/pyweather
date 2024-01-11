@@ -5,4 +5,4 @@
 # TODO
 - [x] add config file
 - [x] add ipapi
-- [ ] add more icons
+- [x] add more icons
