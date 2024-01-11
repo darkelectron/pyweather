@@ -24,14 +24,14 @@ provider=Manual
 09d=
 09n=
 # rain
-010d=
-010n=
+10d=
+10n=
 # thunderstorm
-011d=
-011n=
+11d=
+11n=
 # snow
-013n=
-014d=
+13n=
+13d=
 # mist
 50d=
 50n=
