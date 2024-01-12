@@ -1,6 +1,12 @@
 # pyweather
+_inspired by wedder_
 
-- inspired by wedder
+## Dependencies
+### Needed (libraries)
+- requests
+  
+### Optional
+- nerdfonts
 
 # TODO
 - [x] add config file
