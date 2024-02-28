@@ -3,6 +3,7 @@ LAT=
 LON=
 API_KEY=
 UNITS=
+FORMAT=%%{F#FF0000}%%{T3}ICON %%{T-}%%{F-}TEMP_FEELS_LIKE°C
 
 [LOCATION]
 provider=Manual

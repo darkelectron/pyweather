@@ -25,6 +25,10 @@ def get_latlong_from_ip():
         return False
 
 
+def get_format():
+    return config['DEFAULTS']['FORMAT']
+
+
 check_config_file()
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE_LOCATION)
@@ -92,6 +96,7 @@ rounded_feels_like = round(weather_json["main"]["feels_like"])
 
 config_icons = config['ICONS']
 ICON = config_icons.get(weather_icon)
-format = f"%{{F#FF0000}}%{{T3}}{ICON} %{{T-}}%{{F-}}{rounded_feels_like}°C"
-
+format_from_text = get_format()
+# format = f"%{{F#FF0000}}%{{T3}}{ICON} %{{T-}}%{{F-}}{rounded_feels_like}°C"
+format = format_from_text.replace("ICON", ICON).replace("TEMP_FEELS_LIKE", str(rounded_feels_like))
 print(format)
