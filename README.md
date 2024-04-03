@@ -10,6 +10,7 @@ Display weather conditions on [polybar](https://github.com/jaagr/polybar) (for n
 ### Needed (libraries)
 - requests
 - config
+- ephem
 
 ### Optional
 - nerdfonts
