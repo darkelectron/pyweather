@@ -5,6 +5,8 @@ import json
 import argparse
 import configparser
 import os
+import ephem
+import datetime
 
 CONFIG_FILE_LOCATION = os.path.expanduser('~/.config/pyweather/config.ini')  # issue without os.path thing
 
@@ -28,6 +30,27 @@ def get_latlong_from_ip():
 def get_format():
     return config['DEFAULTS']['FORMAT']
 
+
+def get_moon_phase():
+    date = datetime.date.today()
+    observer = ephem.Observer()
+    observer.date = date
+
+    moon = ephem.Moon(observer)
+    phase = moon.moon_phase
+
+    if phase < 0.25:
+        # print(f"Moon phase for {today}: New Moon")
+        return "nm"
+    elif phase < 0.5:
+        # print(f"Moon phase for {today}: First Quarter")
+        return "fq"
+    elif phase < 0.75:
+        # print(f"Moon phase for {today}: Full Moon")
+        return "fm"
+    else:
+        # print(f"Moon phase for {today}: Last Quarter")
+        return "lq"
 
 check_config_file()
 config = configparser.ConfigParser()
@@ -94,9 +117,13 @@ for i in weather_json["weather"]:
 
 rounded_feels_like = round(weather_json["main"]["feels_like"])
 
-config_icons = config['ICONS']
-ICON = config_icons.get(weather_icon)
+if weather_icon == "01n":
+    config_icons = config['MOON']
+    ICON = config_icons.get(get_moon_phase())
+else:
+    config_icons = config['ICONS']
+    ICON = config_icons.get(weather_icon)
+
 format_from_text = get_format()
-# format = f"%{{F#FF0000}}%{{T3}}{ICON} %{{T-}}%{{F-}}{rounded_feels_like}°C"
 format = format_from_text.replace("ICON", ICON).replace("TEMP_FEELS_LIKE", str(rounded_feels_like))
 print(format)
