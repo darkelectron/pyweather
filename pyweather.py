@@ -18,7 +18,13 @@ def check_config_file():
 
 
 def get_latlong_from_ip():
-    latlong = requests.get("https://ipapi.co/latlong")
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.10 Safari/537.3'
+    }
+    # Use a session to maintain cookies
+    session = requests.Session()
+    # Make a request with the custom headers and session
+    latlong = session.get('https://ipapi.co/latlong', headers=headers)
 
     if latlong.status_code == 200:
         return latlong.text.split(',')
