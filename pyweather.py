@@ -90,8 +90,10 @@ API_KEY = config_defaults.get('API_KEY')
 UNITS = config_defaults.get('UNITS')
 
 OWM_LINK = f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units={UNITS}"
+# print(f"using {OWM_LINK}")
 
 parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--format', action='store_true', help='format')
 parser.add_argument('-v', '--verbose', action='store_true', default=False, help='verbose')
 parser.add_argument('--print-json', action='store_true', default=False, help='print json')
 parser.add_argument('--version', action='store_true', help='print version [does not work]')
@@ -130,6 +132,10 @@ else:
     config_icons = config['ICONS']
     ICON = config_icons.get(weather_icon)
 
-format_from_text = get_format()
-format = format_from_text.replace("ICON", ICON).replace("TEMP_FEELS_LIKE", str(rounded_feels_like))
+if args.format is False:
+    format_from_text = get_format()
+    format = format_from_text.replace("ICON", ICON).replace("TEMP_FEELS_LIKE", str(rounded_feels_like))
+else:
+    format = f"{ICON}{rounded_feels_like}"
+
 print(format)
